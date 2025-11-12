@@ -1,0 +1,157 @@
+/* ---------- 1. Color Theme & Fonts (from user file) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
+
+:root {
+    --hu-primary: #064566;
+    --hu-info: #1fb6d3;
+    --hu-danger: #E01C46;
+    --hu-warning: #F8BA39;
+    --hu-success: #0FA958;
+    --hu-dark: #062d40;
+    --hu-light: #f7f7f7;
+
+    --bs-font-sans-serif: 'IBM Plex Sans', sans-serif;
+    --bs-body-bg: var(--hu-light);
+
+    --hu-radius: 0.5rem;
+    --hu-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- 2. Global Body ---------- */
+body {
+    font-family: var(--bs-font-sans-serif);
+    background-color: var(--bs-body-bg);
+}
+
+html[lang="ar"] body {
+    font-family: 'Cairo', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--hu-dark);
+}
+
+/* ---------- 3. Sidebar (Combination of both) ---------- */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: var(--hu-dark); /* User's color */
+    color: #fff;
+    padding: 1.5rem 1rem;
+}
+
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+.sidebar-brand:hover {
+    color: var(--hu-info); /* User's color */
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 1rem;
+    border-radius: var(--hu-radius);
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
+}
+html[lang="ar"] .sidebar .nav-link i {
+    margin-right: 0;
+    margin-left: 0.75rem;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: var(--hu-info); /* User's color */
+    color: #fff;
+}
+
+/* ---------- 4. Main Content & Cards ---------- */
+main {
+    background-color: var(--hu-light);
+    min-height: calc(100vh - 60px); /* Adjust based on header height */
+}
+
+.card {
+    border: none;
+    box-shadow: var(--hu-shadow);
+    border-radius: var(--hu-radius);
+}
+
+/* KPI cards from user's file */
+.card.card-pending {
+    background-color: var(--hu-danger);
+}
+.card.card-in_progress {
+    background-color: var(--hu-info);
+}
+.card.card-resolved {
+    background-color: var(--hu-success);
+}
+
+
+/* ---------- 5. Profile Header (from existing file, adapted) ---------- */
+.profile-header {
+    background: linear-gradient(135deg, var(--hu-primary) 0%, var(--hu-dark) 100%);
+    color: #fff;
+    padding: 2rem;
+    border-radius: var(--hu-radius);
+}
+
+/* ---------- 6. Buttons ---------- */
+.btn-primary {
+    background-color: var(--hu-primary);
+    border-color: var(--hu-primary);
+}
+.btn-primary:hover {
+    background-color: #013752;
+    border-color: #013752;
+}
+
+.btn-accent {
+    background-color: var(--hu-warning); /* Use user's gold-like color */
+    border-color: var(--hu-warning);
+    color: #000;
+}
+.btn-accent:hover {
+    background-color: #d9a027;
+    border-color: #d9a027;
+    color: #000;
+}
+
+
+/* ---------- 7. Responsive Sidebar (from existing file) ---------- */
+@media (max-width: 991.98px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1045;
+    }
+
+    html[lang="ar"] .sidebar {
+        left: auto;
+        right: 0;
+    }
+
+    .sidebar.collapsing {
+        height: 100%;
+        transition: none;
+    }
+}

@@ -1,0 +1,10 @@
+
+[
+    { "id": "E1", "name": "Dr. Ahmed Mahmoud", "email": "a.mahmoud@hu.edu", "role": "Dean", "departmentId": "D1", "avatar": "https://i.pravatar.cc/150?u=E1" },
+    { "id": "E2", "name": "Dr. Fatima Ali", "email": "f.ali@hu.edu", "role": "Dean", "departmentId": "D3", "avatar": "https://i.pravatar.cc/150?u=E2" },
+    { "id": "E3", "name": "Prof. Youssef Hassan", "email": "y.hassan@hu.edu", "role": "Head of Department", "departmentId": "D1", "avatar": "https://i.pravatar.cc/150?u=E3" },
+    { "id": "E4", "name": "Dr. Mona Said", "email": "m.said@hu.edu", "role": "Head of Department", "departmentId": "D2", "avatar": "https://i.pravatar.cc/150?u=E4" },
+    { "id": "E5", "name": "Prof. Khalid Ibrahim", "email": "k.ibrahim@hu.edu", "role": "Head of Department", "departmentId": "D3", "avatar": "https://i.pravatar.cc/150?u=E5" },
+    { "id": "E6", "name": "Nour Adel", "email": "n.adel@hu.edu", "role": "Admin Staff", "departmentId": "D1", "avatar": "https://i.pravatar.cc/150?u=E6" },
+    { "id": "E7", "name": "Omar Sherif", "email": "o.sherif@hu.edu", "role": "Support Staff", "departmentId": "D2", "avatar": "https://i.pravatar.cc/150?u=E7" }
+]
