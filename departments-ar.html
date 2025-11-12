@@ -18,8 +18,9 @@
             <main class="p-4">
                 <div class="container-fluid">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">قائمة الأقسام</h5>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDepartmentModal">إضافة قسم</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -43,6 +44,41 @@
                     </div>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Add Department Modal -->
+    <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDepartmentModalLabel">إضافة قسم جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-department-form">
+                        <div class="mb-3">
+                            <label for="department-name" class="form-label">اسم القسم</label>
+                            <input type="text" class="form-control" id="department-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="department-faculty" class="form-label">الكلية</label>
+                            <select class="form-select" id="department-faculty" required>
+                                <option value="">اختر الكلية</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="department-head" class="form-label">رئيس القسم</label>
+                            <select class="form-select" id="department-head" required>
+                                <option value="">اختر رئيس القسم</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">حفظ القسم</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -23,7 +22,7 @@
                             <h5 class="card-title mb-0">قائمة فريق العمل</h5>
                             <div class="d-flex">
                                 <input type="text" id="search-input" class="form-control me-2" placeholder="بحث عن موظف...">
-                                <button class="btn btn-primary">إضافة موظف</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">إضافة موظف</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -48,6 +47,42 @@
                     </div>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">إضافة موظف جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-employee-form">
+                        <div class="mb-3">
+                            <label for="employee-name" class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-control" id="employee-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-email" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="employee-email" required>
+                        </div>
+                         <div class="mb-3">
+                            <label for="employee-role" class="form-label">الدور</label>
+                            <input type="text" class="form-control" id="employee-role" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-department" class="form-label">القسم</label>
+                            <select class="form-select" id="employee-department" required>
+                                <option value="">اختر القسم</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">حفظ الموظف</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

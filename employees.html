@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +21,7 @@
                             <h5 class="card-title mb-0">Staff List</h5>
                             <div class="d-flex">
                                 <input type="text" id="search-input" class="form-control me-2" placeholder="Search staff...">
-                                <button class="btn btn-primary">Add Staff</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add Staff</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -50,6 +48,42 @@
             </main>
         </div>
         <div id="sidebar-container"></div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Add New Staff Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-employee-form">
+                        <div class="mb-3">
+                            <label for="employee-name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="employee-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="employee-email" required>
+                        </div>
+                         <div class="mb-3">
+                            <label for="employee-role" class="form-label">Role</label>
+                            <input type="text" class="form-control" id="employee-role" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="employee-department" class="form-label">Department</label>
+                            <select class="form-select" id="employee-department" required>
+                                <option value="">Select Department</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Staff Member</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

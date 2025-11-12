@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">Admins List</h5>
-                            <button class="btn btn-primary">Add Admin</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add Admin</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -43,6 +44,45 @@
             </main>
         </div>
         <div id="sidebar-container"></div>
+    </div>
+
+    <!-- Add Admin Modal -->
+    <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAdminModalLabel">Add New Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-admin-form">
+                        <div class="mb-3">
+                            <label for="admin-name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="admin-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="admin-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="admin-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="admin-role" class="form-label">Role</label>
+                            <select class="form-select" id="admin-role" required>
+                                <option value="Admin Staff">Admin Staff</option>
+                                <option value="System Administrator">System Administrator</option>
+                            </select>
+                        </div>
+                         <div class="mb-3">
+                            <label for="admin-department" class="form-label">Department (Optional)</label>
+                            <select class="form-select" id="admin-department">
+                                <option value="">Select Department</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Admin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

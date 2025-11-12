@@ -22,7 +22,7 @@
                             <h5 class="card-title mb-0">قائمة الطلاب</h5>
                             <div class="d-flex">
                                 <input type="text" id="search-input" class="form-control me-2" placeholder="بحث عن طالب...">
-                                <button class="btn btn-primary">إضافة طالب</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">إضافة طالب</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -46,6 +46,38 @@
                     </div>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">إضافة طالب جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-student-form">
+                        <div class="mb-3">
+                            <label for="student-name" class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-control" id="student-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student-email" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="student-email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student-department" class="form-label">القسم</label>
+                            <select class="form-select" id="student-department" required>
+                                <option value="">اختر القسم</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">حفظ الطالب</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
