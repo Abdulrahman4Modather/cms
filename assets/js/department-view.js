@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const isArabic = document.documentElement.lang === 'ar';
     const params = new URLSearchParams(window.location.search);
     const departmentId = params.get('id');
 
@@ -22,30 +21,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const departmentStudents = students.filter(s => s.departmentId === departmentId);
     const departmentComplaints = complaints.filter(c => c.departmentId === departmentId);
 
-    const translations = {
-        en: {
-            faculty: "Faculty",
-            head: "Head of Dept.",
-            students: "Students",
-            complaints: "Complaints",
-        },
-        ar: {
-            faculty: "الكلية",
-            head: "رئيس القسم",
-            students: "الطلاب",
-            complaints: "الشكاوى",
-        }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-    
     // Render Header
     document.getElementById('profile-header-container').innerHTML = `
         <h2 class="mb-3">${department.name}</h2>
         <div class="row">
-            <div class="col-md-3"><strong>${t.faculty}:</strong> ${faculty.name}</div>
-            <div class="col-md-3"><strong>${t.head}:</strong> ${head.name}</div>
-            <div class="col-md-3"><strong>${t.students}:</strong> ${departmentStudents.length}</div>
-            <div class="col-md-3"><strong>${t.complaints}:</strong> ${departmentComplaints.length}</div>
+            <div class="col-md-3"><strong>Faculty:</strong> ${faculty.name}</div>
+            <div class="col-md-3"><strong>Head of Dept.:</strong> ${head.name}</div>
+            <div class="col-md-3"><strong>Students:</strong> ${departmentStudents.length}</div>
+            <div class="col-md-3"><strong>Complaints:</strong> ${departmentComplaints.length}</div>
         </div>
     `;
 
@@ -69,14 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: Object.keys(statusCounts).map(status => {
-                     const statusKey = status.toLowerCase().replace(' ', '');
-                     const statusTranslations = {
-                         en: { new: 'New', inprogress: 'In Progress', resolved: 'Resolved', escalated: 'Escalated' },
-                         ar: { new: 'جديدة', inprogress: 'قيد المعالجة', resolved: 'تم حلها', escalated: 'تم تصعيدها' }
-                     };
-                     return statusTranslations[isArabic ? 'ar' : 'en'][statusKey] || status;
-                }),
+                labels: Object.keys(statusCounts),
                 datasets: [{
                     data: Object.values(statusCounts),
                     backgroundColor: ['#003366', '#D4A017', '#28a745', '#dc3545'],

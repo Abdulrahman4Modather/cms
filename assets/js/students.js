@@ -3,26 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('search-input');
     if (!tableBody || !searchInput) return;
 
-    const isArabic = document.documentElement.lang === 'ar';
-
-    const translations = {
-        en: { 
-            view: "View", 
-            noResults: "No students found.",
-            "Computer Science": "Computer Science",
-            "Mechanical Engineering": "Mechanical Engineering",
-            "Physics": "Physics"
-        },
-        ar: { 
-            view: "عرض", 
-            noResults: "لم يتم العثور على طلاب.",
-            "Computer Science": "علوم الحاسب",
-            "Mechanical Engineering": "الهندسة الميكانيكية",
-            "Physics": "الفيزياء"
-        }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-
     const [students, departments, complaints] = await Promise.all([
         fetch('data/students.json').then(res => res.json()),
         fetch('data/departments.json').then(res => res.json()),
@@ -34,14 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const complaintCount = complaints.filter(c => c.studentId === student.id).length;
         return {
             ...student,
-            departmentName: department ? (t[department.name] || department.name) : 'N/A', // Translate department name
+            departmentName: department ? department.name : 'N/A',
             complaintCount
         };
     });
 
     const renderTable = (data) => {
         if (data.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" class="text-center">${t.noResults}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No students found.</td></tr>`;
             return;
         }
         tableBody.innerHTML = data.map(student => `
@@ -50,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${student.name}</td>
                 <td>${student.departmentName}</td>
                 <td>${student.complaintCount}</td>
-                <td><a href="student/view${isArabic ? '-ar' : ''}.html?id=${student.id}" class="btn btn-sm btn-accent">${t.view}</a></td>
+                <td><a href="student/view.html?id=${student.id}" class="btn btn-sm btn-accent">View</a></td>
             </tr>
         `).join('');
     };

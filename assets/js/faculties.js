@@ -3,13 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const departmentsTableBody = document.getElementById('departments-table-body');
     if (!facultiesTableBody || !departmentsTableBody) return;
 
-    const isArabic = document.documentElement.lang === 'ar';
-    const translations = {
-        en: { view: "View" },
-        ar: { view: "عرض" }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-
     const [faculties, departments, employees, students, complaints] = await Promise.all([
         fetch('data/faculties.json').then(res => res.json()),
         fetch('data/departments.json').then(res => res.json()),
@@ -37,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <td>${f.deanName}</td>
             <td>${f.departmentCount}</td>
             <td>${f.studentCount}</td>
-            <td><a href="faculty/view${isArabic ? '-ar' : ''}.html?id=${f.id}" class="btn btn-sm btn-accent">${t.view}</a></td>
+            <td><a href="faculty/view.html?id=${f.id}" class="btn btn-sm btn-accent">View</a></td>
         </tr>
     `).join('');
     
@@ -60,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <td>${dept.facultyName}</td>
             <td>${dept.headName}</td>
             <td>${dept.complaintCount}</td>
-            <td><a href="department/view${isArabic ? '-ar' : ''}.html?id=${dept.id}" class="btn btn-sm btn-accent">${t.view}</a></td>
+            <td><a href="department/view.html?id=${dept.id}" class="btn btn-sm btn-accent">View</a></td>
         </tr>
     `).join('');
 });

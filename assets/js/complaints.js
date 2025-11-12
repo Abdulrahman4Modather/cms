@@ -7,14 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!tableBody) return;
     
-    const isArabic = document.documentElement.lang === 'ar';
-    const translations = {
-        en: { viewDetails: "View Details", noResults: "No complaints found." },
-        ar: { viewDetails: "عرض التفاصيل", noResults: "لم يتم العثور على شكاوى." }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-
-
     const [complaints, students, employees, departments, faculties] = await Promise.all([
         fetch('data/complaints.json').then(res => res.json()),
         fetch('data/students.json').then(res => res.json()),
@@ -33,20 +25,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     const getStatusBadge = (status) => {
-        const statusKey = status.toLowerCase().replace(' ', '');
-        const statusTranslations = {
-            en: { new: 'New', inprogress: 'In Progress', resolved: 'Resolved', escalated: 'Escalated' },
-            ar: { new: 'جديدة', inprogress: 'قيد المعالجة', resolved: 'تم حلها', escalated: 'تم تصعيدها' }
-        };
-        const statusText = statusTranslations[isArabic ? 'ar' : 'en'][statusKey] || status;
-        
         const badgeClasses = {
             'New': 'bg-primary',
             'In Progress': 'bg-warning text-dark',
             'Resolved': 'bg-success',
             'Escalated': 'bg-danger',
         };
-        return `<span class="badge ${badgeClasses[status]}">${statusText}</span>`;
+        return `<span class="badge ${badgeClasses[status]}">${status}</span>`;
     };
 
     const complaintData = complaints.map(complaint => {
@@ -64,18 +49,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const renderTable = (data) => {
         if (data.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="7" class="text-center">${t.noResults}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="7" class="text-center">No complaints found.</td></tr>`;
             return;
         }
         tableBody.innerHTML = data.map(c => `
             <tr>
                 <td>${c.id}</td>
                 <td>${c.title}</td>
-                <td><a href="student/view${isArabic ? '-ar' : ''}.html?id=${c.studentId}">${c.studentName}</a></td>
-                <td><a href="employee/view${isArabic ? '-ar' : ''}.html?id=${c.employeeId}">${c.employeeName}</a></td>
+                <td><a href="student/view.html?id=${c.studentId}">${c.studentName}</a></td>
+                <td><a href="employee/view.html?id=${c.employeeId}">${c.employeeName}</a></td>
                 <td>${c.date}</td>
                 <td>${getStatusBadge(c.status)}</td>
-                <td><a href="#" class="btn btn-sm btn-accent">${t.viewDetails}</a></td>
+                <td><a href="#" class="btn btn-sm btn-accent">View Details</a></td>
             </tr>
         `).join('');
     };

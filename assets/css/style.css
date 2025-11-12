@@ -24,10 +24,6 @@ body {
     background-color: var(--bs-body-bg);
 }
 
-html[lang="ar"] body {
-    font-family: 'Cairo', sans-serif;
-}
-
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     color: var(--hu-dark);
@@ -69,10 +65,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 0.75rem;
     width: 20px;
     text-align: center;
-}
-html[lang="ar"] .sidebar .nav-link i {
-    margin-right: 0;
-    margin-left: 0.75rem;
 }
 
 .sidebar .nav-link:hover,
@@ -143,11 +135,6 @@ main {
         bottom: 0;
         left: 0;
         z-index: 1045;
-    }
-
-    html[lang="ar"] .sidebar {
-        left: auto;
-        right: 0;
     }
 
     .sidebar.collapsing {

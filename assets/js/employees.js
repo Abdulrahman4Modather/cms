@@ -3,33 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('search-input');
     if (!tableBody || !searchInput) return;
 
-    const isArabic = document.documentElement.lang === 'ar';
-    const translations = {
-        en: { 
-            view: "View", 
-            noResults: "No employees found.",
-            "Dean": "Dean",
-            "Head of Department": "Head of Department",
-            "Admin Staff": "Admin Staff",
-            "Support Staff": "Support Staff",
-            "Computer Science": "Computer Science",
-            "Mechanical Engineering": "Mechanical Engineering",
-            "Physics": "Physics"
-        },
-        ar: { 
-            view: "عرض", 
-            noResults: "لم يتم العثور على موظفين.",
-            "Dean": "عميد",
-            "Head of Department": "رئيس قسم",
-            "Admin Staff": "مسؤول إداري",
-            "Support Staff": "موظف دعم",
-            "Computer Science": "علوم الحاسب",
-            "Mechanical Engineering": "الهندسة الميكانيكية",
-            "Physics": "الفيزياء"
-        }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-
     const [employees, departments, complaints] = await Promise.all([
         fetch('data/employees.json').then(res => res.json()),
         fetch('data/departments.json').then(res => res.json()),
@@ -41,15 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const activeComplaints = complaints.filter(c => c.employeeId === employee.id && c.status !== 'Resolved').length;
         return {
             ...employee,
-            departmentName: department ? (t[department.name] || department.name) : 'N/A', // Translate department
-            role: t[employee.role] || employee.role, // Translate role
+            departmentName: department ? department.name : 'N/A',
             activeComplaints
         };
     });
 
     const renderTable = (data) => {
         if (data.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">${t.noResults}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">No employees found.</td></tr>`;
             return;
         }
         tableBody.innerHTML = data.map(emp => `
@@ -59,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${emp.role}</td>
                 <td>${emp.departmentName}</td>
                 <td>${emp.activeComplaints}</td>
-                <td><a href="employee/view${isArabic ? '-ar' : ''}.html?id=${emp.id}" class="btn btn-sm btn-accent">${t.view}</a></td>
+                <td><a href="employee/view.html?id=${emp.id}" class="btn btn-sm btn-accent">View</a></td>
             </tr>
         `).join('');
     };

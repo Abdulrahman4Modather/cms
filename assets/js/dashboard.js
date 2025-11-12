@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const isArabic = document.documentElement.lang === 'ar';
     const pathPrefix = (window.location.pathname.includes('/student/') || window.location.pathname.includes('/employee/')) ? '../' : '';
 
     const [complaints, students, employees, faculties, departments] = await Promise.all([
@@ -10,58 +9,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         fetch(`${pathPrefix}data/departments.json`).then(res => res.json()),
     ]);
 
-    // Translations
-    const translations = {
-        en: {
-            totalComplaints: "Total Complaints",
-            pending: "Pending",
-            inProgress: "In Progress",
-            resolved: "Resolved",
-            id: "ID",
-            title: "Title",
-            student: "Student",
-            date: "Date",
-            status: "Status",
-            actions: "Actions",
-            view: "View",
-            newVsResolved: "New vs Resolved Complaints (Last 4 Weeks)",
-            complaintsPerFaculty: "Complaints per Faculty",
-            totalLabel: "Total:"
-        },
-        ar: {
-            totalComplaints: "إجمالي الشكاوى",
-            pending: "معلقة",
-            inProgress: "قيد المعالجة",
-            resolved: "تم حلها",
-            id: "المعرف",
-            title: "العنوان",
-            student: "الطالب",
-            date: "التاريخ",
-            status: "الحالة",
-            actions: "الإجراءات",
-            view: "عرض",
-            newVsResolved: "الشكاوى الجديدة مقابل المحلولة (آخر 4 أسابيع)",
-            complaintsPerFaculty: "الشكاوى لكل كلية",
-            totalLabel: "الإجمالي:"
-        }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
-
     const getStatusBadge = (status) => {
-        const statusKey = status.toLowerCase().replace(' ', '');
-        const statusTranslations = {
-            en: { new: 'New', inprogress: 'In Progress', resolved: 'Resolved', escalated: 'Escalated' },
-            ar: { new: 'جديدة', inprogress: 'قيد المعالجة', resolved: 'تم حلها', escalated: 'تم تصعيدها' }
-        };
-        const statusText = statusTranslations[isArabic ? 'ar' : 'en'][statusKey] || status;
-        
         const badgeClasses = {
             'New': 'bg-danger',
             'In Progress': 'bg-info',
             'Resolved': 'bg-success',
             'Escalated': 'bg-warning',
         };
-        return `<span class="badge ${badgeClasses[status]}">${statusText}</span>`;
+        return `<span class="badge ${badgeClasses[status]}">${status}</span>`;
     };
 
     // KPIs
@@ -73,14 +28,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             resolved: complaints.filter(c => c.status === 'Resolved').length
         };
         
-        document.getElementById('total-complaints-label').innerText = `${t.totalLabel} ${complaints.length}`;
+        document.getElementById('total-complaints-label').innerText = `Total: ${complaints.length}`;
         
         kpiContainer.innerHTML = `
             <div class="col-md-4 mb-3">
                 <div class="card card-pending">
                     <div class="card-body text-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0 h5">${t.pending}</p>
+                            <p class="mb-0 h5">Pending</p>
                             <p class="h3 mb-0">${kpis.pending}</p>
                         </div>
                     </div>
@@ -90,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="card card-in_progress">
                     <div class="card-body text-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0 h5">${t.inProgress}</p>
+                            <p class="mb-0 h5">In Progress</p>
                             <p class="h3 mb-0">${kpis.inProgress}</p>
                         </div>
                     </div>
@@ -100,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div class="card card-resolved">
                     <div class="card-body text-white">
                         <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0 h5">${t.resolved}</p>
+                            <p class="mb-0 h5">Resolved</p>
                             <p class="h3 mb-0">${kpis.resolved}</p>
                         </div>
                     </div>
@@ -126,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${c.studentName}</td>
                 <td>${c.date}</td>
                 <td>${getStatusBadge(c.status)}</td>
-                <td><a href="student/view${isArabic?'-ar':''}.html?id=${c.studentId}" class="btn btn-sm btn-accent">${t.view}</a></td>
+                <td><a href="student/view.html?id=${c.studentId}" class="btn btn-sm btn-accent">View</a></td>
             </tr>
         `).join('');
     }

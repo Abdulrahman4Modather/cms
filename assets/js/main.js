@@ -1,11 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const pagePath = window.location.pathname.split('/').pop();
-    const isArabic = document.documentElement.lang === 'ar';
-
-    // Load Header and Sidebar
-    const headerPath = isArabic ? 'includes/header-ar.html' : 'includes/header.html';
-    const sidebarPath = isArabic ? 'includes/sidebar-ar.html' : 'includes/sidebar.html';
     
     // Adjust path for nested pages
     const pathPrefix = (window.location.pathname.includes('/student/') || window.location.pathname.includes('/employee/') || window.location.pathname.includes('/department/') || window.location.pathname.includes('/faculty/')) ? '../' : '';
@@ -14,16 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebarContainer = document.getElementById('sidebar-container');
     
     if (headerContainer) {
-        fetch(`${pathPrefix}${headerPath}`)
+        fetch(`${pathPrefix}includes/header.html`)
             .then(response => response.text())
             .then(data => {
                 headerContainer.innerHTML = data;
-                setupLanguageSwitcher(pagePath, isArabic);
             });
     }
 
     if (sidebarContainer) {
-        fetch(`${pathPrefix}${sidebarPath}`)
+        fetch(`${pathPrefix}includes/sidebar.html`)
             .then(response => response.text())
             .then(data => {
                 sidebarContainer.innerHTML = data;
@@ -35,32 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('.sidebar .nav-link');
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href').split('/').pop();
-            if (linkPage === currentPage) {
+            // Normalize current page to handle if user is on an -ar.html page
+            const currentPageNormalized = currentPage.replace('-ar.html', '.html');
+            if (linkPage === currentPageNormalized) {
                 link.classList.add('active');
             }
         });
-    }
-    
-    function setupLanguageSwitcher(currentPage, isArabic) {
-        const switcherLink = document.getElementById('lang-switcher-link');
-        if (switcherLink) {
-            let targetPage = '';
-            const baseName = currentPage.replace('-ar.html', '').replace('.html', '');
-
-            if (isArabic) {
-                // From Arabic to English
-                targetPage = `${baseName}.html`;
-            } else {
-                // From English to Arabic
-                targetPage = `${baseName}-ar.html`;
-            }
-
-            // Handle special cases for view pages
-             if (window.location.search) {
-                targetPage += window.location.search;
-            }
-            
-            switcherLink.href = targetPage;
-        }
     }
 });

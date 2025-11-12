@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const isArabic = document.documentElement.lang === 'ar';
     const params = new URLSearchParams(window.location.search);
     const facultyId = params.get('id');
     if (!facultyId) { return; }
@@ -19,20 +18,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dean = employees.find(e => e.id === faculty.deanId);
     const facultyDepartments = departments.filter(d => d.facultyId === facultyId);
     const facultyStudents = students.filter(s => s.facultyId === facultyId);
-
-    const translations = {
-        en: { dean: "Dean", departments: "Departments", students: "Students", totalComplaints: "Total Complaints" },
-        ar: { dean: "العميد", departments: "الأقسام", students: "الطلاب", totalComplaints: "إجمالي الشكاوى" }
-    };
-    const t = translations[isArabic ? 'ar' : 'en'];
     
     // Header
     document.getElementById('profile-header-container').innerHTML = `
         <h2 class="mb-3">${faculty.name}</h2>
         <div class="row">
-            <div class="col-md-4"><strong>${t.dean}:</strong> ${dean.name}</div>
-            <div class="col-md-4"><strong>${t.departments}:</strong> ${facultyDepartments.length}</div>
-            <div class="col-md-4"><strong>${t.students}:</strong> ${facultyStudents.length}</div>
+            <div class="col-md-4"><strong>Dean:</strong> ${dean.name}</div>
+            <div class="col-md-4"><strong>Departments:</strong> ${facultyDepartments.length}</div>
+            <div class="col-md-4"><strong>Students:</strong> ${facultyStudents.length}</div>
         </div>
     `;
 
@@ -51,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             data: {
                 labels: chartData.map(d => d.name),
                 datasets: [{
-                    label: t.totalComplaints,
+                    label: 'Total Complaints',
                     data: chartData.map(d => d.complaintCount),
                     backgroundColor: '#003366',
                 }]
